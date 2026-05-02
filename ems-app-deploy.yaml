@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ems-deployment
+spec:
+  replicas: 2
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: ems-app
+  template:
+    metadata:
+      name: ems-app-pod
+      labels:
+        app: ems-app
+    spec:
+      containers:
+        - name: ems-app-container
+          image: codehub/ems-app
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 9000
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ems-app-svc
+spec:
+  type: LoadBalancer
+  selector:
+    app: ems-app
+  ports:
+    - port: 80
+      targetPort: 9000
