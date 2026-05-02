@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: ems-app-container
-          image: codehub/ems-app
+          image: madhav201994/ems-app
           imagePullPolicy: Always
           ports:
             - containerPort: 9000
